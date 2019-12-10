@@ -22,6 +22,18 @@ pub fn i64_file(p: &str) -> std::io::Result<Vec<i64>> {
     Ok(nums)
 }
 
+pub fn i64_csv(p: &str) -> std::io::Result<Vec<i64>> {
+    let lines = file(p)?;
+    let mut nums: Vec<i64> = Vec::new();
+    for n in lines[0].split(",") {
+        match n.parse::<i64>() {
+            Ok(v) => nums.push(v),
+            Err(e) => return Err(std::io::Error::new(std::io::ErrorKind::Other, e)),
+        }
+    }
+    Ok(nums)
+}
+
 #[test]
 fn test_file() {
     let output = file("./tests/strings.txt").unwrap();
@@ -31,5 +43,11 @@ fn test_file() {
 #[test]
 fn test_i64_file() {
     let output = i64_file("./tests/i64.txt").unwrap();
+    assert_eq!(output, [104042, 112116, 57758, 139018, 105580]);
+}
+
+#[test]
+fn test_i64_csv() {
+    let output = i64_csv("./tests/i64.csv").unwrap();
     assert_eq!(output, [104042, 112116, 57758, 139018, 105580]);
 }
