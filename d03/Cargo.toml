@@ -1,0 +1,11 @@
+[package]
+name = "d03"
+version = "0.1.0"
+authors = ["colvin <cwellborn@flexera.com>"]
+edition = "2018"
+
+[dependencies.file_argument]
+path = "../file_argument"
+
+[dependencies.parse_input]
+path = "../parse_input"
